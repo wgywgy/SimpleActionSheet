@@ -26,9 +26,7 @@ public struct ActionSheetItem: ActionSheetItemModel {
     public var height: CGFloat
     public var selectAction: ((actionSheet: ActionSheet) -> Void)?
     public var backGroundColor: UIColor
-}
 
-extension ActionSheetItem {
     public init(title: String, font: UIFont = UIFont.systemFontOfSize(14), fontColor: UIColor = UIColor.blackColor(), backGroundColor: UIColor = UIColor.whiteColor(), height: CGFloat = 44, selectAction: ((actionSheet: ActionSheet) -> Void)?) {
         self.title = title
         self.fontColor = fontColor

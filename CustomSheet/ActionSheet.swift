@@ -97,6 +97,7 @@ public class ActionSheet: NSObject {
         setupContainerView()
         targetView.addSubview(itemContainerView)
 
+        itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
         UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
             self.maskView.alpha = 1
             self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
@@ -129,7 +130,6 @@ public class ActionSheet: NSObject {
         }
 
         totalItemsHeight = currentPosition
-        itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
     }
 
     public func dismiss() {
