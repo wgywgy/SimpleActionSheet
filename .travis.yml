@@ -1,4 +1,4 @@
-language: swift
+language: objective-c
+os: osx
 osx_image: xcode8
-xcode_sdk: iphonesimulator8.0
-script: xcodebuild -target CustomSheet -sdk iphonesimulator
+xcode_sdk: iphonesimulator9.0
