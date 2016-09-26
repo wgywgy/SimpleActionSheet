@@ -9,8 +9,9 @@
 import UIKit
 
 extension ActionSheet {
-    class func makeCustomActionSheet() -> ActionSheet {
-        let actionSheet = ActionSheet(options: logoutStyle())
+    class func customSheet() -> ActionSheet {
+        let actionSheet = ActionSheet()
+//        actionSheet.options =
         return actionSheet
     }
 
@@ -18,6 +19,7 @@ extension ActionSheet {
         let options: [ActionSheetOption] = [
             ActionSheetOption.SepLineHeight(1),
             ActionSheetOption.SepLineColor(UIColor.lightGrayColor()),
+            ActionSheetOption.SepLineLeftMargin(20),
             ]
         return options
     }

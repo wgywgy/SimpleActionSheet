@@ -42,6 +42,7 @@ public class ActionSheet: NSObject {
 
     private lazy var itemContainerView: UIView = {
         let aItemContainerView = UIView()
+        aItemContainerView.backgroundColor = UIColor.whiteColor()
         return aItemContainerView
     }()
 
@@ -55,42 +56,35 @@ public class ActionSheet: NSObject {
 
     public var options = [ActionSheetOption]() {
         didSet {
-            processOptions()
-        }
-    }
-
-    func processOptions() {
-        for option in options {
-            switch option {
-            case let .SepLineHeight(value):
-                sepLineHeight = value
-            case let .SepLineColor(value):
-                sepLineColor = value
-            case let .SepLineWidth(value):
-                sepLineWidth = value
-            case let .SepLineLeftMargin(value):
-                sepLineLeftMargin = value
+            for option in options {
+                switch option {
+                case let .SepLineHeight(value):
+                    sepLineHeight = value
+                case let .SepLineColor(value):
+                    sepLineColor = value
+                case let .SepLineWidth(value):
+                    sepLineWidth = value
+                case let .SepLineLeftMargin(value):
+                    sepLineLeftMargin = value
+                }
             }
         }
     }
 
-    public init(options: [ActionSheetOption]) {
-        super.init()
-
-        self.options = options
-        processOptions()
-    }
-
-    public func showInWindow(items: [ActionSheetItemModel]? = nil, closeBlock: (() -> Void)? = nil) {
+    public func showInWindow(items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         let window = UIApplication.sharedApplication().delegate?.window
-        showInView(window!!, items: items, closeBlock: closeBlock)
+        showInView(window!!, items: items, options: options, closeBlock: closeBlock)
     }
 
-    public func showInView(targetView: UIView, items: [ActionSheetItemModel]? = nil, closeBlock: (() -> Void)? = nil) {
+    public func showInView(targetView: UIView, items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         if let items = items {
             self.items = items
         }
         self.closeAction = closeBlock
+
+        if let options = options {
+            self.options = options
+        }
 
         targetView.addSubview(maskView)
 

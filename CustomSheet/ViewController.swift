@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UIViewController {
 
     lazy var actionSheet: ActionSheet = {
-        let actSheet = ActionSheet.makeCustomActionSheet()
+        let actSheet = ActionSheet.customSheet()
         return actSheet
     }()
 
@@ -43,7 +43,6 @@ class ViewController: UIViewController {
         return [cleanActionItem, cancelActionItem]
     }()
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -54,8 +53,7 @@ class ViewController: UIViewController {
 
     @IBAction func showSheet(sender: AnyObject) {
         actionSheet.items = actionSheetItem
-        actionSheet.options = ActionSheet.logoutStyle()
-        actionSheet.showInWindow()
+        actionSheet.showInWindow(options: ActionSheet.logoutStyle())
     }
 
     @IBAction func showSheet2(sender: AnyObject) {
