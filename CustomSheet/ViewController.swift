@@ -51,12 +51,12 @@ class ViewController: UIViewController {
         print("over")
     }
 
-    @IBAction func showSheet(sender: AnyObject) {
+    @IBAction func showSheet(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem
         actionSheet.showInWindow(options: ActionSheet.logoutStyle())
     }
 
-    @IBAction func showSheet2(sender: AnyObject) {
+    @IBAction func showSheet2(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem2
         actionSheet.options = ActionSheet.cleanStyle()
         actionSheet.showInWindow()

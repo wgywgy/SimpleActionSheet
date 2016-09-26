@@ -17,17 +17,17 @@ extension ActionSheet {
 
     class func logoutStyle() -> [ActionSheetOption] {
         let options: [ActionSheetOption] = [
-            ActionSheetOption.SepLineHeight(1),
-            ActionSheetOption.SepLineColor(UIColor.lightGrayColor()),
-            ActionSheetOption.SepLineLeftMargin(20),
+            ActionSheetOption.sepLineHeight(1),
+            ActionSheetOption.sepLineColor(UIColor.lightGray),
+            ActionSheetOption.sepLineLeftMargin(20),
             ]
         return options
     }
 
     class func cleanStyle() -> [ActionSheetOption] {
         let options: [ActionSheetOption] = [
-            ActionSheetOption.SepLineHeight(1),
-            ActionSheetOption.SepLineColor(UIColor.blueColor()),
+            ActionSheetOption.sepLineHeight(1),
+            ActionSheetOption.sepLineColor(UIColor.blue),
             ]
         return options
     }

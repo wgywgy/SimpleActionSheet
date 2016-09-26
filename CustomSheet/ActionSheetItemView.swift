@@ -12,7 +12,7 @@ class ActionSheetItemView: UIView {
 
     lazy var titleLabel: UILabel = {
         let aLabel = UILabel()
-        aLabel.textAlignment = .Center
+        aLabel.textAlignment = .center
         aLabel.frame = CGRect(x: 0, y: 0, width: self.frame.size.width, height: self.frame.size.height)
         self.addSubview(aLabel)
 
@@ -38,7 +38,7 @@ class ActionSheetItemView: UIView {
         self.clipsToBounds = true
     }
     
-    func setStyle(item: ActionSheetItemModel) {
+    func setStyle(_ item: ActionSheetItemModel) {
         backgroundColor = item.backGroundColor
         titleLabel.text = item.title
         titleLabel.textColor = item.fontColor

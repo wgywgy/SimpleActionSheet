@@ -9,27 +9,30 @@
 import UIKit
 
 public enum ActionSheetOption {
-    case SepLineHeight(CGFloat)
-    case SepLineColor(UIColor)
-    case SepLineWidth(CGFloat)
-    case SepLineLeftMargin(CGFloat)
+    case sepLineHeight(CGFloat)
+    case sepLineColor(UIColor)
+    case sepLineWidth(CGFloat)
+    case sepLineLeftMargin(CGFloat)
 }
 
-public class ActionSheet: NSObject {
+open class ActionSheet: NSObject {
 
-    public var items = [ActionSheetItemModel]()
+    open var items = [ActionSheetItemModel]()
 
     var closeAction: (() -> Void)?
 
     var totalItemsHeight: CGFloat = 0
+    
+    var actionSheetItemViews = [ActionSheetItemView]()
+    var sepLineViews = [UIView]()
 
     // Config Options var
     var sepLineHeight: CGFloat = 1
-    var sepLineColor: UIColor = UIColor.lightGrayColor()
-    var sepLineWidth: CGFloat = UIScreen.mainScreen().bounds.width
+    var sepLineColor: UIColor = UIColor.lightGray
+    var sepLineWidth: CGFloat = UIScreen.main.bounds.width
     var sepLineLeftMargin: CGFloat = 0
 
-    private lazy var maskView: UIView = {
+    fileprivate lazy var maskView: UIView = {
         let aView = UIView()
         aView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         aView.frame = self.screenBounds
@@ -40,9 +43,9 @@ public class ActionSheet: NSObject {
         return aView
     }()
 
-    private lazy var itemContainerView: UIView = {
+    fileprivate lazy var itemContainerView: UIView = {
         let aItemContainerView = UIView()
-        aItemContainerView.backgroundColor = UIColor.whiteColor()
+        aItemContainerView.backgroundColor = UIColor.white
         return aItemContainerView
     }()
 
@@ -52,31 +55,39 @@ public class ActionSheet: NSObject {
         return aSepLineView
     }
 
-    let screenBounds = UIScreen.mainScreen().bounds
+    let screenBounds = UIScreen.main.bounds
 
-    public var options = [ActionSheetOption]() {
+    open var options = [ActionSheetOption]() {
         didSet {
+            restoreProperty()
             for option in options {
                 switch option {
-                case let .SepLineHeight(value):
+                case let .sepLineHeight(value):
                     sepLineHeight = value
-                case let .SepLineColor(value):
+                case let .sepLineColor(value):
                     sepLineColor = value
-                case let .SepLineWidth(value):
+                case let .sepLineWidth(value):
                     sepLineWidth = value
-                case let .SepLineLeftMargin(value):
+                case let .sepLineLeftMargin(value):
                     sepLineLeftMargin = value
                 }
             }
         }
     }
 
-    public func showInWindow(items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
-        let window = UIApplication.sharedApplication().delegate?.window
+    func restoreProperty() {
+        sepLineHeight = 1
+        sepLineColor = UIColor.lightGray
+        sepLineWidth = UIScreen.main.bounds.width
+        sepLineLeftMargin = 0
+    }
+    
+    open func showInWindow(_ items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
+        let window = UIApplication.shared.delegate?.window
         showInView(window!!, items: items, options: options, closeBlock: closeBlock)
     }
 
-    public func showInView(targetView: UIView, items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
+    open func showInView(_ targetView: UIView, items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         if let items = items {
             self.items = items
         }
@@ -92,7 +103,7 @@ public class ActionSheet: NSObject {
         targetView.addSubview(itemContainerView)
 
         itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
+        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             self.maskView.alpha = 1
             self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
             }) { (finish) in
@@ -108,6 +119,7 @@ public class ActionSheet: NSObject {
             let itemSize = CGSize(width: screenBounds.width, height: aItem.height)
             let aItemView = ActionSheetItemView(frame: CGRect(origin: itemOriginPoint, size: itemSize))
             aItemView.setStyle(aItem)
+            actionSheetItemViews.append(aItemView)
 
             aItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ActionSheet.buttonWasTapped(_:))))
 
@@ -117,6 +129,7 @@ public class ActionSheet: NSObject {
             if i < items.count - 1 {
                 let aSep = createSepLineView()
                 aSep.frame = CGRect(x: sepLineLeftMargin, y: currentPosition, width: sepLineWidth, height: sepLineHeight)
+                sepLineViews.append(aSep)
                 itemContainerView.addSubview(aSep)
 
                 currentPosition += sepLineHeight
@@ -126,13 +139,22 @@ public class ActionSheet: NSObject {
         totalItemsHeight = currentPosition
     }
 
-    public func dismiss() {
-        UIView.animateWithDuration(0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
+    open func dismiss() {
+        UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
             self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height, width: self.screenBounds.width, height: self.itemContainerView.frame.height)
             self.maskView.alpha = 0
             }) { (finish) in
                 self.itemContainerView.removeFromSuperview()
                 self.maskView.removeFromSuperview()
+                for actionSheetItemView in self.actionSheetItemViews {
+                    actionSheetItemView.removeFromSuperview()
+                }
+                self.actionSheetItemViews.removeAll()
+                
+                for sepLineView in self.sepLineViews {
+                    sepLineView.removeFromSuperview()
+                }
+                self.sepLineViews.removeAll()
 
                 self.closeAction?()
         }
@@ -144,14 +166,14 @@ extension ActionSheet {
         dismiss()
     }
 
-    func buttonWasTapped(sender: UITapGestureRecognizer) {
+    func buttonWasTapped(_ sender: UITapGestureRecognizer) {
         guard let aItemView = sender.view as? ActionSheetItemView else {
             return
         }
 
         for item in items {
             if aItemView.titleLabel.text == item.title {
-                item.selectAction?(actionSheet: self)
+                item.selectAction?(self)
             }
         }
     }
