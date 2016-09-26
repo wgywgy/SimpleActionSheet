@@ -37,5 +37,12 @@ class ActionSheetItemView: UIView {
     func setting() {
         self.clipsToBounds = true
     }
+    
+    func setStyle(item: ActionSheetItem) {
+        backgroundColor = item.backGroundColor
+        titleLabel.text = item.title
+        titleLabel.textColor = item.fontColor
+        titleLabel.font = item.font
+    }
 
 }

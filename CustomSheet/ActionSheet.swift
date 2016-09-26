@@ -103,37 +103,34 @@ public class ActionSheet: NSObject {
             }) { (finish) in
         }
     }
-    
+
     func setupContainerView() {
         var currentPosition: CGFloat = 0
-        
+
         for i in (0 ..< self.items.count) {
             let aItem = self.items[i]
             let itemOriginPoint = CGPoint(x: 0, y: currentPosition)
             let itemSize = CGSize(width: screenBounds.width, height: aItem.height)
             let aItemView = ActionSheetItemView(frame: CGRect(origin: itemOriginPoint, size: itemSize))
-            aItemView.backgroundColor = aItem.backGroundColor
-            aItemView.titleLabel.text = aItem.title
-            aItemView.titleLabel.textColor = aItem.fontColor
-            aItemView.titleLabel.font = aItem.font
-            
+            aItemView.setStyle(aItem)
+
             aItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ActionSheet.buttonWasTapped(_:))))
-            
+
             itemContainerView.addSubview(aItemView)
             currentPosition += aItem.height
-            
+
             if i == self.items.count - 1 {
                 continue
             }
             let aSep = createSepLineView()
             aSep.frame = CGRect(x: sepLineLeftMargin, y: currentPosition, width: sepLineWidth, height: sepLineHeight)
             itemContainerView.addSubview(aSep)
-            
+
             currentPosition += sepLineHeight
         }
-        
+
         totalItemsHeight = currentPosition
-        
+
         itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
     }
 
