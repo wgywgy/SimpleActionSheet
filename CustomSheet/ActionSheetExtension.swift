@@ -16,8 +16,8 @@ extension ActionSheet {
 
     class func logoutStyle() -> [ActionSheetOption] {
         let options: [ActionSheetOption] = [
-            ActionSheetOption.SepLineHeight(2),
-            ActionSheetOption.SepLineColor(UIColor.greenColor()),
+            ActionSheetOption.SepLineHeight(1),
+            ActionSheetOption.SepLineColor(UIColor.lightGrayColor()),
             ]
         return options
     }

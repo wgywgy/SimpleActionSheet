@@ -21,7 +21,9 @@ public class ActionSheet: NSObject {
 
     var closeAction: (() -> Void)?
 
-    // View
+    var totalItemsHeight: CGFloat = 0
+
+    // Config Options var
     var sepLineHeight: CGFloat = 1
     var sepLineColor: UIColor = UIColor.lightGrayColor()
     var sepLineWidth: CGFloat = UIScreen.mainScreen().bounds.width
@@ -92,9 +94,19 @@ public class ActionSheet: NSObject {
 
         targetView.addSubview(maskView)
 
-        var currentPosition: CGFloat = 0
-        var totalItemsHeight: CGFloat = 0
+        setupContainerView()
+        targetView.addSubview(itemContainerView)
 
+        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
+            self.maskView.alpha = 1
+            self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
+            }) { (finish) in
+        }
+    }
+    
+    func setupContainerView() {
+        var currentPosition: CGFloat = 0
+        
         for i in (0 ..< self.items.count) {
             let aItem = self.items[i]
             let itemOriginPoint = CGPoint(x: 0, y: currentPosition)
@@ -104,32 +116,25 @@ public class ActionSheet: NSObject {
             aItemView.titleLabel.text = aItem.title
             aItemView.titleLabel.textColor = aItem.fontColor
             aItemView.titleLabel.font = aItem.font
-
+            
             aItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ActionSheet.buttonWasTapped(_:))))
-
+            
             itemContainerView.addSubview(aItemView)
             currentPosition += aItem.height
-
+            
             if i == self.items.count - 1 {
                 continue
             }
             let aSep = createSepLineView()
             aSep.frame = CGRect(x: sepLineLeftMargin, y: currentPosition, width: sepLineWidth, height: sepLineHeight)
             itemContainerView.addSubview(aSep)
-
+            
             currentPosition += sepLineHeight
         }
-
+        
         totalItemsHeight = currentPosition
-
-        targetView.addSubview(itemContainerView)
+        
         itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
-
-        UIView.animateWithDuration(0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .CurveEaseOut, animations: {
-            self.maskView.alpha = 1
-            self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - totalItemsHeight, width: self.screenBounds.width, height: totalItemsHeight)
-            }) { (finish) in
-        }
     }
 
     public func dismiss() {
