@@ -1,3 +1,13 @@
 language: objective-c
 os: osx
 osx_image: xcode8
+-before_install:
+ - |
+    gem install xcpretty -N --no-ri --no-rdoc
+
+script:
+- |
+      set -o pipefail
+      xcodebuild -target CustomSheet -sdk iphonesimulator | xcpretty
+after_success:
+    - bash <(curl -s https://codecov.io/bash)
