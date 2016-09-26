@@ -1,5 +1,5 @@
-lnguage: swift
-osx_image: xcode7.3.2
+language: swift
+osx_image: xcode7.3.1
 xcode_project: CustomSheet.xcodeproj
 xcode_scheme: CustomSheet
 xcode_sdk: iphonesimulator8.0
