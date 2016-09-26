@@ -17,7 +17,7 @@ public enum ActionSheetOption {
 
 public class ActionSheet: NSObject {
 
-    public var items = [ActionSheetItem]()
+    public var items = [ActionSheetItemModel]()
 
     var closeAction: (() -> Void)?
 
@@ -81,12 +81,12 @@ public class ActionSheet: NSObject {
         processOptions()
     }
 
-    public func showInWindow(items: [ActionSheetItem]? = nil, closeBlock: (() -> Void)? = nil) {
+    public func showInWindow(items: [ActionSheetItemModel]? = nil, closeBlock: (() -> Void)? = nil) {
         let window = UIApplication.sharedApplication().delegate?.window
         showInView(window!!, items: items, closeBlock: closeBlock)
     }
 
-    public func showInView(targetView: UIView, items: [ActionSheetItem]? = nil, closeBlock: (() -> Void)? = nil) {
+    public func showInView(targetView: UIView, items: [ActionSheetItemModel]? = nil, closeBlock: (() -> Void)? = nil) {
         if let items = items {
             self.items = items
         }
@@ -107,8 +107,8 @@ public class ActionSheet: NSObject {
     func setupContainerView() {
         var currentPosition: CGFloat = 0
 
-        for i in (0 ..< self.items.count) {
-            let aItem = self.items[i]
+        for i in (0 ..< items.count) {
+            let aItem = items[i]
             let itemOriginPoint = CGPoint(x: 0, y: currentPosition)
             let itemSize = CGSize(width: screenBounds.width, height: aItem.height)
             let aItemView = ActionSheetItemView(frame: CGRect(origin: itemOriginPoint, size: itemSize))
@@ -119,18 +119,16 @@ public class ActionSheet: NSObject {
             itemContainerView.addSubview(aItemView)
             currentPosition += aItem.height
 
-            if i == self.items.count - 1 {
-                continue
-            }
-            let aSep = createSepLineView()
-            aSep.frame = CGRect(x: sepLineLeftMargin, y: currentPosition, width: sepLineWidth, height: sepLineHeight)
-            itemContainerView.addSubview(aSep)
+            if i < items.count - 1 {
+                let aSep = createSepLineView()
+                aSep.frame = CGRect(x: sepLineLeftMargin, y: currentPosition, width: sepLineWidth, height: sepLineHeight)
+                itemContainerView.addSubview(aSep)
 
-            currentPosition += sepLineHeight
+                currentPosition += sepLineHeight
+            }
         }
 
         totalItemsHeight = currentPosition
-
         itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
     }
 

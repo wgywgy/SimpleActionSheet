@@ -15,8 +15,8 @@ class ViewController: UIViewController {
         return actSheet
     }()
 
-    lazy var actionSheetItem: [ActionSheetItem] = {
-        let aActionItem = ActionSheetItem(title: "退出登录") { [weak self] (actionSheet) in
+    lazy var actionSheetItem: [ActionSheetItemModel] = {
+        let logoutActionItem = ActionSheetItem(title: "退出登录") { [weak self] (actionSheet) in
             guard let `self` = self else { return }
             self.logout()
         }
@@ -26,11 +26,11 @@ class ViewController: UIViewController {
             actionSheet.dismiss()
         }
 
-        return [aActionItem, cancelActionItem]
+        return [logoutActionItem, cancelActionItem]
     }()
 
-    lazy var actionSheetItem2: [ActionSheetItem] = {
-        let aActionItem = ActionSheetItem(title: "清除系统缓存(不删除已缓存影片)") { [weak self] (actionSheet) in
+    lazy var actionSheetItem2: [ActionSheetItemModel] = {
+        let cleanActionItem = ActionSheetItem(title: "清除系统缓存(不删除已缓存影片)") { [weak self] (actionSheet) in
             guard let `self` = self else { return }
             self.clean()
         }
@@ -40,7 +40,7 @@ class ViewController: UIViewController {
             actionSheet.dismiss()
         }
 
-        return [aActionItem, cancelActionItem]
+        return [cleanActionItem, cancelActionItem]
     }()
 
 
