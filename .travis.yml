@@ -11,3 +11,6 @@ script:
       xcodebuild -target CustomSheet -sdk iphonesimulator | xcpretty
 after_success:
     - bash <(curl -s https://codecov.io/bash)
+
+notifications:
+  webhooks: https://hooks.pubu.im/services/x1ernzl2xzexhke
