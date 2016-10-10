@@ -62,10 +62,14 @@ class ViewController: UIViewController {
         actionSheet.showInWindow()
     }
 
+}
+
+// MARK: ActionSheet action
+extension ViewController {
     func logout() {
         print("logout")
     }
-
+    
     func clean() {
         print("clean")
     }

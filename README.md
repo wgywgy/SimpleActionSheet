@@ -17,7 +17,7 @@ A Simple ActionSheet writen in Swift
 **CocoaPods**
 
 ```
-pod install ''
+pod install 'SimpleActionSheet'
 ```
 
 **Carthage**
@@ -33,6 +33,53 @@ github "wgywgy/SimpleActionSheet"
 - iOS 8.0+
 
 ## Use
+
+STEP1: Init a ActionSheet and ActionSheetItem.
+
+```swift
+lazy var actionSheet: ActionSheet = {
+    let actionSheet = ActionSheet()
+    return actionSheet
+}()
+
+lazy var actionSheetItem: [ActionSheetItemModel] = {
+    let logoutActionItem = ActionSheetItem(title: "退出登录") { [weak self] (actionSheet) in
+        guard let `self` = self else { return }
+        self.logout()
+    }
+
+    let cancelActionItem = CancelActionSheetItem { (actionSheet) in
+        print("cancel")
+        actionSheet.dismiss()
+    }
+
+    return [logoutActionItem, cancelActionItem]
+}()
+```
+
+STEP 2: Define ActionSheet in extension.
+
+```swift
+extension ActionSheet {
+    class func logoutStyle() -> [ActionSheetOption] {
+        let options: [ActionSheetOption] = [
+            ActionSheetOption.sepLineHeight(1),
+            ActionSheetOption.sepLineColor(UIColor.lightGray),
+            ActionSheetOption.sepLineLeftMargin(20),
+            ]
+        return options
+    }
+}
+```
+
+STEP 3: Show Action as below.
+
+```swift
+actionSheet.items = actionSheetItem
+actionSheet.showInWindow(options: ActionSheet.logoutStyle())
+```
+
+More method can look at ActionSheet.swift.
 
 License
 =======
