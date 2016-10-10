@@ -9,7 +9,9 @@ A Simple ActionSheet writen in Swift
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Screenshots
-![Screenshots1](https://github.com/wgywgy/SimpleActionSheet/blob/master/DemoPic/Demo1.png)
+<p align="center">
+<img src="https://github.com/wgywgy/SimpleActionSheet/blob/master/DemoPic/Demo1.png" alt="Screenshots1" title="Screenshots1" width="320"/>
+</p>
 
 ## Install
 **CocoaPods**
@@ -34,7 +36,7 @@ github "wgywgy/SimpleActionSheet"
 
 License
 =======
-MIT License
+SimpleActionSheet is released under the MIT license. See LICENSE for details.
 
 [1]:	https://travis-ci.org/wgywgy/SimpleActionSheet
 [2]:	https://codebeat.co/projects/github-com-wgywgy-simpleactionsheet
