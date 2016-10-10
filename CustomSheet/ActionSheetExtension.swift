@@ -11,7 +11,6 @@ import UIKit
 extension ActionSheet {
     class func customSheet() -> ActionSheet {
         let actionSheet = ActionSheet()
-//        actionSheet.options =
         return actionSheet
     }
 
