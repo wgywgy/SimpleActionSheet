@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>SimpleActionSheet.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -23,6 +28,16 @@
 			<true/>
 		</dict>
 		<key>3A1FC04F1D9514D6002708F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AF5AB2A1DAB93E60099C92F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3AF5AB321DAB93E60099C92F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
