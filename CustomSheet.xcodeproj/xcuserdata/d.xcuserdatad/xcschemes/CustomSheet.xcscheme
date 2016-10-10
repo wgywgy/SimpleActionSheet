@@ -48,6 +48,16 @@
                ReferencedContainer = "container:CustomSheet.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3AF5AB321DAB93E60099C92F"
+               BuildableName = "SimpleActionSheetTests.xctest"
+               BlueprintName = "SimpleActionSheetTests"
+               ReferencedContainer = "container:CustomSheet.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
