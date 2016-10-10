@@ -1,6 +1,4 @@
 # SimpleActionSheet
-Warn: Still edit.
-
 A Simple ActionSheet writen in Swift
 
 ![](https://img.shields.io/badge/Swift-3.0-blue.svg?style=flat)
@@ -9,8 +7,8 @@ A Simple ActionSheet writen in Swift
 [![Carthage Compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 ## Screenshots
-<p align="center">
-<img src="https://github.com/wgywgy/SimpleActionSheet/blob/master/DemoPic/Demo1.png" alt="Screenshots1" title="Screenshots1" width="320"/>
+<p align="left">
+<img src="https://github.com/wgywgy/SimpleActionSheet/blob/master/DemoPic/Demo1.png" alt="Screenshots1" title="Screenshots1" width="246"/>
 </p>
 
 ## Install
