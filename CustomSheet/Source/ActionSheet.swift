@@ -15,6 +15,13 @@ public enum ActionSheetOption {
     case sepLineLeftMargin(CGFloat)
 }
 
+struct ScreenSize {
+    static let width = UIScreen.main.bounds.size.width
+    static let height = UIScreen.main.bounds.size.height
+    static let maxLength = max(ScreenSize.width, ScreenSize.height)
+    static let minLength = min(ScreenSize.width, ScreenSize.height)
+}
+
 open class ActionSheet: NSObject {
 
     open var items = [ActionSheetItemModel]()
@@ -29,9 +36,19 @@ open class ActionSheet: NSObject {
     // Config Options var
     var sepLineHeight: CGFloat = 1
     var sepLineColor: UIColor = UIColor.lightGray
-    var sepLineWidth: CGFloat = UIScreen.main.bounds.width
+    var sepLineWidth: CGFloat = ScreenSize.width
     var sepLineLeftMargin: CGFloat = 0
 
+    var containerWindow: UIWindow = {
+        let originFrame = CGRect(x: 0, y: -20, width: ScreenSize.width, height: 20)
+        let aWindow = UIWindow(frame: originFrame)
+//        aWindow.isHidden = false
+        aWindow.windowLevel = UIWindowLevelAlert
+        
+        return aWindow
+
+    }()
+    
     fileprivate lazy var maskView: UIView = {
         let aView = UIView()
         aView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
@@ -55,7 +72,11 @@ open class ActionSheet: NSObject {
         return aSepLineView
     }
 
-    let screenBounds = UIScreen.main.bounds
+    var screenBounds: CGRect {
+        get {
+            return UIScreen.main.bounds
+        }
+    }
 
     open var options = [ActionSheetOption]() {
         didSet {
@@ -82,6 +103,14 @@ open class ActionSheet: NSObject {
         sepLineLeftMargin = 0
     }
     
+    // Mark Life:
+    override init() {
+        super.init()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrientation(notification:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+    }
+    
+    // Mark Action:
     open func showInWindow(_ items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         let window = UIApplication.shared.delegate?.window
         showInView(window!!, items: items, options: options, closeBlock: closeBlock)
@@ -97,6 +126,7 @@ open class ActionSheet: NSObject {
             self.options = options
         }
 
+        maskView.frame = screenBounds
         targetView.addSubview(maskView)
 
         setupContainerView()
@@ -161,6 +191,16 @@ open class ActionSheet: NSObject {
     }
 }
 
+extension ActionSheet {
+    func didChangeOrientation(notification: Notification) {
+        let orientation = UIApplication.shared.statusBarOrientation
+        if UIInterfaceOrientationIsLandscape(orientation) {
+            print("Landscape")
+        } else {
+            print("Portrait")
+        }
+    }
+}
 extension ActionSheet {
     func maskViewWasTapped() {
         dismiss()
