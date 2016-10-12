@@ -41,7 +41,7 @@ lazy var actionSheet: ActionSheet = {
 }()
 
 lazy var actionSheetItem: [ActionSheetItemModel] = {
-    let logoutActionItem = ActionSheetItem(title: "退出登录") { [weak self] (actionSheet) in
+    let logoutActionItem = ActionSheetItem(title: "Logout") { [weak self] (actionSheet) in
         guard let `self` = self else { return }
         self.logout()
     }
@@ -60,12 +60,11 @@ STEP 2: Define ActionSheet in extension.
 ```swift
 extension ActionSheet {
     class func logoutStyle() -> [ActionSheetOption] {
-        let options: [ActionSheetOption] = [
-            ActionSheetOption.sepLineHeight(1),
-            ActionSheetOption.sepLineColor(UIColor.lightGray),
-            ActionSheetOption.sepLineLeftMargin(20),
+        return [
+            .sepLineHeight(1),
+            .sepLineColor(.lightGray),
+            .sepLineLeftMargin(20),
             ]
-        return options
     }
 }
 ```

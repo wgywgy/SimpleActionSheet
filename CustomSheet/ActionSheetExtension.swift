@@ -11,24 +11,26 @@ import UIKit
 extension ActionSheet {
     class func customSheet() -> ActionSheet {
         let actionSheet = ActionSheet()
+        actionSheet.commonOptions = [
+            .blurBackground(true),
+            .bounceShow(true)
+        ]
         return actionSheet
     }
 
     class func logoutStyle() -> [ActionSheetOption] {
-        let options: [ActionSheetOption] = [
-            ActionSheetOption.sepLineHeight(1),
-            ActionSheetOption.sepLineColor(UIColor.lightGray),
-            ActionSheetOption.sepLineLeftMargin(20),
+        return [
+            .sepLineHeight(1),
+            .sepLineColor(.lightGray),
+            .sepLineLeftMargin(20),
             ]
-        return options
     }
 
     class func cleanStyle() -> [ActionSheetOption] {
-        let options: [ActionSheetOption] = [
-            ActionSheetOption.sepLineHeight(1),
-            ActionSheetOption.sepLineColor(UIColor.blue),
+        return [
+            .sepLineHeight(1),
+            .sepLineColor(.blue),
             ]
-        return options
     }
 
 }

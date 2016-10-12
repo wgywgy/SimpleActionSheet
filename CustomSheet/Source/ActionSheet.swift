@@ -8,6 +8,12 @@
 
 import UIKit
 
+public enum ActionSheetCommonOption {
+    case blurBackground(Bool)
+    case darkBackgroundColor(Bool)
+    case bounceShow(Bool)
+}
+
 public enum ActionSheetOption {
     case sepLineHeight(CGFloat)
     case sepLineColor(UIColor)
@@ -33,12 +39,17 @@ open class ActionSheet: NSObject {
     var actionSheetItemViews = [ActionSheetItemView]()
     var sepLineViews = [UIView]()
 
-    // Config Options var
+    // ActionSheetCommonOption var
+    var blurBackground = false
+    var darkBackgroundColor = true
+    var bounceShow = false
+    
+    // ActionSheetOption var
     var sepLineHeight: CGFloat = 1
     var sepLineColor: UIColor = UIColor.lightGray
     var sepLineWidth: CGFloat = ScreenSize.width
     var sepLineLeftMargin: CGFloat = 0
-
+    
     var containerWindow: UIWindow = {
         let originFrame = CGRect(x: 0, y: -20, width: ScreenSize.width, height: 20)
         let aWindow = UIWindow(frame: originFrame)
@@ -50,13 +61,17 @@ open class ActionSheet: NSObject {
     }()
     
     fileprivate lazy var maskView: UIView = {
-        let aView = UIView()
-        aView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-        aView.frame = self.screenBounds
+        let aView: UIView
+        if self.blurBackground {
+            aView = self.createBlurView(frame: self.screenBounds)
+        } else {
+            aView = UIView(frame: self.screenBounds)
+            aView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        }
+        
         aView.alpha = 0
         let maskViewTapGesture = UITapGestureRecognizer(target: self, action: #selector(maskViewWasTapped))
         aView.addGestureRecognizer(maskViewTapGesture)
-
         return aView
     }()
 
@@ -78,6 +93,21 @@ open class ActionSheet: NSObject {
         }
     }
 
+    open var commonOptions = [ActionSheetCommonOption]() {
+        didSet {
+            for option in commonOptions {
+                switch option {
+                case let .blurBackground(value):
+                    blurBackground = value
+                case let .bounceShow(value):
+                    bounceShow = value
+                case let .darkBackgroundColor(value):
+                    darkBackgroundColor = value
+                }
+            }
+        }
+    }
+    
     open var options = [ActionSheetOption]() {
         didSet {
             restoreProperty()
@@ -103,13 +133,6 @@ open class ActionSheet: NSObject {
         sepLineLeftMargin = 0
     }
     
-    // Mark Life:
-    override init() {
-        super.init()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrientation(notification:)), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
-    }
-    
     // Mark Action:
     open func showInWindow(_ items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         let window = UIApplication.shared.delegate?.window
@@ -133,10 +156,17 @@ open class ActionSheet: NSObject {
         targetView.addSubview(itemContainerView)
 
         itemContainerView.frame = CGRect(x: 0, y: screenBounds.height, width: screenBounds.width, height: totalItemsHeight)
-        UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
-            self.maskView.alpha = 1
-            self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
-            }) { (finish) in
+        
+        if bounceShow {
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.68, initialSpringVelocity: 0.7, options: .curveEaseOut, animations: {
+                self.maskView.alpha = 1.0
+                self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
+            })
+        } else {
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: .curveEaseOut, animations: {
+                self.maskView.alpha = 1.0
+                self.itemContainerView.frame = CGRect(x: 0, y: self.screenBounds.height - self.totalItemsHeight, width: self.screenBounds.width, height: self.totalItemsHeight)
+            })
         }
     }
 
@@ -192,15 +222,15 @@ open class ActionSheet: NSObject {
 }
 
 extension ActionSheet {
-    func didChangeOrientation(notification: Notification) {
-        let orientation = UIApplication.shared.statusBarOrientation
-        if UIInterfaceOrientationIsLandscape(orientation) {
-            print("Landscape")
-        } else {
-            print("Portrait")
-        }
+    func createBlurView(frame: CGRect) -> UIView {
+        let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.frame = frame
+        blurEffectView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return blurEffectView
     }
 }
+
 extension ActionSheet {
     func maskViewWasTapped() {
         dismiss()
