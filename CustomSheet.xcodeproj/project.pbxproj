@@ -15,6 +15,7 @@
 		3A51D4AD1DAB8AE200BE0FA3 /* ActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51D4A91DAB8AE200BE0FA3 /* ActionSheet.swift */; };
 		3A51D4AF1DAB8AE200BE0FA3 /* ActionSheetItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51D4AB1DAB8AE200BE0FA3 /* ActionSheetItem.swift */; };
 		3A51D4B01DAB8AE200BE0FA3 /* ActionSheetItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A51D4AC1DAB8AE200BE0FA3 /* ActionSheetItemView.swift */; };
+		3A5BF1991DAE41DA0096DEFC /* ActionSheetController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A5BF1981DAE41DA0096DEFC /* ActionSheetController.xib */; };
 		3AF5AB341DAB93E60099C92F /* SimpleActionSheet.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AF5AB2B1DAB93E60099C92F /* SimpleActionSheet.framework */; };
 		3AF5AB3B1DAB93E60099C92F /* SimpleActionSheetTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF5AB3A1DAB93E60099C92F /* SimpleActionSheetTests.swift */; };
 		3AF5AB3D1DAB93E60099C92F /* SimpleActionSheet.h in Headers */ = {isa = PBXBuildFile; fileRef = 3AF5AB2D1DAB93E60099C92F /* SimpleActionSheet.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -75,6 +76,7 @@
 		3A51D4A91DAB8AE200BE0FA3 /* ActionSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheet.swift; sourceTree = "<group>"; };
 		3A51D4AB1DAB8AE200BE0FA3 /* ActionSheetItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetItem.swift; sourceTree = "<group>"; };
 		3A51D4AC1DAB8AE200BE0FA3 /* ActionSheetItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActionSheetItemView.swift; sourceTree = "<group>"; };
+		3A5BF1981DAE41DA0096DEFC /* ActionSheetController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActionSheetController.xib; sourceTree = "<group>"; };
 		3AF5AB2B1DAB93E60099C92F /* SimpleActionSheet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SimpleActionSheet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3AF5AB2D1DAB93E60099C92F /* SimpleActionSheet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SimpleActionSheet.h; sourceTree = "<group>"; };
 		3AF5AB2E1DAB93E60099C92F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				3A51D4A91DAB8AE200BE0FA3 /* ActionSheet.swift */,
+				3A5BF1981DAE41DA0096DEFC /* ActionSheetController.xib */,
 				3A51D4AB1DAB8AE200BE0FA3 /* ActionSheetItem.swift */,
 				3A51D4AC1DAB8AE200BE0FA3 /* ActionSheetItemView.swift */,
 			);
@@ -295,6 +298,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A1FC03F1D9514D6002708F4 /* LaunchScreen.storyboard in Resources */,
+				3A5BF1991DAE41DA0096DEFC /* ActionSheetController.xib in Resources */,
 				3A1FC03C1D9514D6002708F4 /* Assets.xcassets in Resources */,
 				3A1FC03A1D9514D6002708F4 /* Main.storyboard in Resources */,
 			);

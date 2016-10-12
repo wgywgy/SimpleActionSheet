@@ -28,7 +28,7 @@ struct ScreenSize {
     static let minLength = min(ScreenSize.width, ScreenSize.height)
 }
 
-open class ActionSheet: NSObject {
+open class ActionSheetController: UIViewController {
 
     open var items = [ActionSheetItemModel]()
 
@@ -46,10 +46,11 @@ open class ActionSheet: NSObject {
     
     // ActionSheetOption var
     var sepLineHeight: CGFloat = 1
-    var sepLineColor: UIColor = UIColor.lightGray
+    var sepLineColor: UIColor = .lightGray
     var sepLineWidth: CGFloat = ScreenSize.width
     var sepLineLeftMargin: CGFloat = 0
     
+    @IBOutlet weak var maskBgView: UIView!
     var containerWindow: UIWindow = {
         let originFrame = CGRect(x: 0, y: -20, width: ScreenSize.width, height: 20)
         let aWindow = UIWindow(frame: originFrame)
@@ -77,7 +78,7 @@ open class ActionSheet: NSObject {
 
     fileprivate lazy var itemContainerView: UIView = {
         let aItemContainerView = UIView()
-        aItemContainerView.backgroundColor = UIColor.white
+        aItemContainerView.backgroundColor = .white
         return aItemContainerView
     }()
 
@@ -128,7 +129,7 @@ open class ActionSheet: NSObject {
 
     func restoreProperty() {
         sepLineHeight = 1
-        sepLineColor = UIColor.lightGray
+        sepLineColor = .lightGray
         sepLineWidth = UIScreen.main.bounds.width
         sepLineLeftMargin = 0
     }
@@ -181,7 +182,7 @@ open class ActionSheet: NSObject {
             aItemView.setStyle(aItem)
             actionSheetItemViews.append(aItemView)
 
-            aItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ActionSheet.buttonWasTapped(_:))))
+            aItemView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(ActionSheetController.buttonWasTapped(_:))))
 
             itemContainerView.addSubview(aItemView)
             currentPosition += aItem.height
@@ -221,7 +222,7 @@ open class ActionSheet: NSObject {
     }
 }
 
-extension ActionSheet {
+extension ActionSheetController {
     func createBlurView(frame: CGRect) -> UIView {
         let blurEffect = UIBlurEffect(style: UIBlurEffectStyle.dark)
         let blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -231,7 +232,7 @@ extension ActionSheet {
     }
 }
 
-extension ActionSheet {
+extension ActionSheetController {
     func maskViewWasTapped() {
         dismiss()
     }

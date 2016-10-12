@@ -8,9 +8,9 @@
 
 import UIKit
 
-extension ActionSheet {
-    class func customSheet() -> ActionSheet {
-        let actionSheet = ActionSheet()
+extension ActionSheetController {
+    class func custom() -> ActionSheetController {
+        let actionSheet = ActionSheetController()
         actionSheet.commonOptions = [
             .blurBackground(true),
             .bounceShow(true)

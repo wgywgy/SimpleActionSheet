@@ -10,9 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    lazy var actionSheet: ActionSheet = {
-        let actSheet = ActionSheet.customSheet()
-        return actSheet
+    lazy var actionSheet: ActionSheetController = {
+        return ActionSheetController.custom()
     }()
 
     lazy var actionSheetItem: [ActionSheetItemModel] = {
@@ -30,7 +29,12 @@ class ViewController: UIViewController {
     }()
 
     lazy var actionSheetItem2: [ActionSheetItemModel] = {
-        let cleanActionItem = ActionSheetItem(title: "清除系统缓存(不删除已缓存影片)") { [weak self] (actionSheet) in
+        let cleanActionItem = ActionSheetItem(title: "Action 1") { [weak self] (actionSheet) in
+            guard let `self` = self else { return }
+            self.clean()
+        }
+
+        let cleanActionItem2 = ActionSheetItem(title: "Action 2") { [weak self] (actionSheet) in
             guard let `self` = self else { return }
             self.clean()
         }
@@ -40,7 +44,7 @@ class ViewController: UIViewController {
             actionSheet.dismiss()
         }
 
-        return [cleanActionItem, cancelActionItem]
+        return [cleanActionItem, cleanActionItem2, cancelActionItem]
     }()
 
     override func viewDidLoad() {
@@ -53,12 +57,12 @@ class ViewController: UIViewController {
 
     @IBAction func showSheet(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem
-        actionSheet.showInWindow(options: ActionSheet.logoutStyle())
+        actionSheet.showInWindow(options: ActionSheetController.logoutStyle())
     }
 
     @IBAction func showSheet2(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem2
-        actionSheet.options = ActionSheet.cleanStyle()
+        actionSheet.options = ActionSheetController.cleanStyle()
         actionSheet.showInWindow()
     }
 
