@@ -11,7 +11,7 @@ import UIKit
 extension ActionSheetController {
     class func custom() -> ActionSheetController {
         let actionSheet = ActionSheetController()
-        actionSheet.commonOptions = [
+        actionSheet.preferredCommonStyle = [
             .blurBackground(true),
             .bounceShow(true)
         ]

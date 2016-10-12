@@ -94,9 +94,9 @@ open class ActionSheetController: UIViewController {
         }
     }
 
-    open var commonOptions = [ActionSheetCommonOption]() {
+    open var preferredCommonStyle = [ActionSheetCommonOption]() {
         didSet {
-            for option in commonOptions {
+            for option in preferredCommonStyle {
                 switch option {
                 case let .blurBackground(value):
                     blurBackground = value
@@ -109,10 +109,10 @@ open class ActionSheetController: UIViewController {
         }
     }
     
-    open var options = [ActionSheetOption]() {
+    open var preferredStyle = [ActionSheetOption]() {
         didSet {
             restoreProperty()
-            for option in options {
+            for option in preferredStyle {
                 switch option {
                 case let .sepLineHeight(value):
                     sepLineHeight = value
@@ -135,19 +135,19 @@ open class ActionSheetController: UIViewController {
     }
     
     // Mark Action:
-    open func showInWindow(_ items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
+    open func showInWindow(_ items: [ActionSheetItemModel]? = nil, preferredStyle: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         let window = UIApplication.shared.delegate?.window
-        showInView(window!!, items: items, options: options, closeBlock: closeBlock)
+        showInView(window!!, items: items, preferredStyle: preferredStyle, closeBlock: closeBlock)
     }
 
-    open func showInView(_ targetView: UIView, items: [ActionSheetItemModel]? = nil, options: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
+    open func showInView(_ targetView: UIView, items: [ActionSheetItemModel]? = nil, preferredStyle: [ActionSheetOption]? = nil, closeBlock: (() -> Void)? = nil) {
         if let items = items {
             self.items = items
         }
         self.closeAction = closeBlock
 
-        if let options = options {
-            self.options = options
+        if let preferredStyle = preferredStyle {
+            self.preferredStyle = preferredStyle
         }
 
         maskView.frame = screenBounds

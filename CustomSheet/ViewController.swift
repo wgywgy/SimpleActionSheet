@@ -57,12 +57,12 @@ class ViewController: UIViewController {
 
     @IBAction func showSheet(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem
-        actionSheet.showInWindow(options: ActionSheetController.logoutStyle())
+        actionSheet.showInWindow(preferredStyle: ActionSheetController.logoutStyle())
     }
 
     @IBAction func showSheet2(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem2
-        actionSheet.options = ActionSheetController.cleanStyle()
+        actionSheet.preferredStyle = ActionSheetController.cleanStyle()
         actionSheet.showInWindow()
     }
 
