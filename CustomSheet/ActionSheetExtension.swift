@@ -9,7 +9,7 @@
 import UIKit
 
 extension ActionSheetController {
-    class func custom() -> ActionSheetController {
+    class var customSheet: ActionSheetController {
         let actionSheet = ActionSheetController()
         actionSheet.preferredCommonStyle = [
             .blurBackground(true),
@@ -18,19 +18,19 @@ extension ActionSheetController {
         return actionSheet
     }
 
-    class func logoutStyle() -> [ActionSheetOption] {
+    class var logoutStyle: [ActionSheetOption] {
         return [
             .sepLineHeight(1),
             .sepLineColor(.lightGray),
-            .sepLineLeftMargin(20),
-            ]
+            .sepLineLeftMargin(20)
+        ]
     }
 
-    class func cleanStyle() -> [ActionSheetOption] {
+    class var cleanStyle: [ActionSheetOption] {
         return [
             .sepLineHeight(1),
-            .sepLineColor(.blue),
-            ]
+            .sepLineColor(.blue)
+        ]
     }
 
 }

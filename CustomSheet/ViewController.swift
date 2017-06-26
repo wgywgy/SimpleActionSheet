@@ -11,13 +11,13 @@ import UIKit
 class ViewController: UIViewController {
 
     lazy var actionSheet: ActionSheetController = {
-        return ActionSheetController.custom()
+        return ActionSheetController.customSheet
     }()
 
     lazy var actionSheetItem: [ActionSheetItemModel] = {
-        let logoutActionItem = ActionSheetItem(title: "退出登录") { [weak self] (actionSheet) in
-            guard let `self` = self else { return }
+        let logoutActionItem = ActionSheetItem(title: "退出登录") { [unowned self] (actionSheet) in
             self.logout()
+            actionSheet.dismiss()
         }
 
         let cancelActionItem = CancelActionSheetItem { (actionSheet) in
@@ -29,13 +29,11 @@ class ViewController: UIViewController {
     }()
 
     lazy var actionSheetItem2: [ActionSheetItemModel] = {
-        let cleanActionItem = ActionSheetItem(title: "Action 1") { [weak self] (actionSheet) in
-            guard let `self` = self else { return }
+        let cleanActionItem = ActionSheetItem(title: "Action 1") { [unowned self] (actionSheet) in
             self.clean()
         }
 
-        let cleanActionItem2 = ActionSheetItem(title: "Action 2") { [weak self] (actionSheet) in
-            guard let `self` = self else { return }
+        let cleanActionItem2 = ActionSheetItem(title: "Action 2") { [unowned self] (actionSheet) in
             self.clean()
         }
 
@@ -57,12 +55,12 @@ class ViewController: UIViewController {
 
     @IBAction func showSheet(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem
-        actionSheet.showInWindow(preferredStyle: ActionSheetController.logoutStyle())
+        actionSheet.showInWindow(preferredStyle: ActionSheetController.logoutStyle)
     }
 
     @IBAction func showSheet2(_ sender: AnyObject) {
         actionSheet.items = actionSheetItem2
-        actionSheet.preferredStyle = ActionSheetController.cleanStyle()
+        actionSheet.preferredStyle = ActionSheetController.cleanStyle
         actionSheet.showInWindow()
     }
 
